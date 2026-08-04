@@ -1,7 +1,11 @@
+import Hero from '../components/Hero'
+import FeatureGrid from '../components/FeatureGrid'
+
 function Home() {
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold text-pink-600">Home Page</h1>
+    <div>
+      <Hero />
+      <FeatureGrid />
     </div>
   )
 }
