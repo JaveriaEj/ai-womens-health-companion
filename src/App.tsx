@@ -6,6 +6,7 @@ import Features from './pages/Features'
 import Education from './pages/Education'
 import Dashboard from './pages/Dashboard'
 import CycleTracker from './pages/CycleTracker'
+import AIAssistant from './pages/AIAssistant'
 import Login from './pages/Login'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/education" element={<Education />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/cycle-tracker" element={<CycleTracker />} />
+          <Route path="/ai-assistant" element={<AIAssistant />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>
