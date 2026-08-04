@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Features from './pages/Features'
 import Education from './pages/Education'
 import Dashboard from './pages/Dashboard'
+import CycleTracker from './pages/CycleTracker'
 import Login from './pages/Login'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/features" element={<Features />} />
           <Route path="/education" element={<Education />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/cycle-tracker" element={<CycleTracker />} />
           <Route path="/login" element={<Login />} />
         </Routes>
       </main>
