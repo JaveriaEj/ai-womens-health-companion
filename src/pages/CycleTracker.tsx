@@ -1,6 +1,12 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import type { CycleData } from '../types/cycle'
-import { getNextPeriodDate, getFertileWindow, getDaysUntil, formatDate } from '../utils/cycleCalculations'
+import {
+  getNextPeriodDate,
+  getFertileWindow,
+  getDaysUntil,
+  formatDate,
+} from '../utils/cycleCalculations'
+import { saveCycleEntry } from '../services/cycleStorage'
 
 function CycleTracker() {
   const [lastPeriodStart, setLastPeriodStart] = useState('')
@@ -8,15 +14,27 @@ function CycleTracker() {
   const [periodLength, setPeriodLength] = useState(5)
   const [result, setResult] = useState<CycleData | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault()
+
     if (!lastPeriodStart) return
-    setResult({ lastPeriodStart, cycleLength, periodLength })
+
+    const data: CycleData = {
+      lastPeriodStart,
+      cycleLength,
+      periodLength,
+    }
+
+    saveCycleEntry(data)
+    setResult(data)
   }
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold text-gray-800 mb-2">Cycle Tracker</h1>
+      <h1 className="text-4xl font-bold text-gray-800 mb-2">
+        Cycle Tracker
+      </h1>
+
       <p className="text-gray-600 mb-10">
         Log your last period to get predictions for your next cycle.
       </p>
@@ -29,6 +47,7 @@ function CycleTracker() {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Last period start date
           </label>
+
           <input
             type="date"
             value={lastPeriodStart}
@@ -42,6 +61,7 @@ function CycleTracker() {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Average cycle length: {cycleLength} days
           </label>
+
           <input
             type="range"
             min={21}
@@ -56,6 +76,7 @@ function CycleTracker() {
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Average period length: {periodLength} days
           </label>
+
           <input
             type="range"
             min={2}
@@ -77,19 +98,27 @@ function CycleTracker() {
       {result && (
         <div className="mt-8 grid sm:grid-cols-2 gap-4">
           <div className="bg-pink-50 rounded-2xl p-6 border border-pink-100">
-            <p className="text-sm text-pink-600 font-medium mb-1">Next period</p>
+            <p className="text-sm text-pink-600 font-medium mb-1">
+              Next period
+            </p>
+
             <p className="text-2xl font-bold text-gray-800">
               {formatDate(getNextPeriodDate(result))}
             </p>
+
             <p className="text-sm text-gray-500 mt-1">
               in {getDaysUntil(getNextPeriodDate(result))} days
             </p>
           </div>
 
           <div className="bg-purple-50 rounded-2xl p-6 border border-purple-100">
-            <p className="text-sm text-purple-600 font-medium mb-1">Fertile window</p>
+            <p className="text-sm text-purple-600 font-medium mb-1">
+              Fertile window
+            </p>
+
             <p className="text-lg font-bold text-gray-800">
-              {formatDate(getFertileWindow(result).start)} – {formatDate(getFertileWindow(result).end)}
+              {formatDate(getFertileWindow(result).start)} –{' '}
+              {formatDate(getFertileWindow(result).end)}
             </p>
           </div>
         </div>
