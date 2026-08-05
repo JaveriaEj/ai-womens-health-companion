@@ -38,3 +38,12 @@ export function formatDate(date: Date): string {
     year: 'numeric',
   })
 }
+export function getCurrentCycleDay(lastPeriodStart: string): number {
+  const start = new Date(lastPeriodStart)
+  start.setHours(0, 0, 0, 0)
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const diffTime = today.getTime() - start.getTime()
+  const dayNumber = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1
+  return dayNumber > 0 ? dayNumber : 1
+}

@@ -9,6 +9,8 @@ import CycleTracker from './pages/CycleTracker'
 import AIAssistant from './pages/AIAssistant'
 import Login from './pages/Login'
 import ComingSoon from './pages/ComingSoon'
+import SymptomLogger from './pages/SymptomLogger'
+
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/ai-assistant" element={<AIAssistant />} />
           <Route path="/login" element={<Login />} />
           <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route path="/symptom-logger" element={<SymptomLogger />} />
         </Routes>
       </main>
 

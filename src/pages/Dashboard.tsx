@@ -7,11 +7,26 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts'
+import { Link } from 'react-router-dom'
 
-import { getCycleHistory } from '../services/cycleStorage'
+import {
+  getCycleHistory,
+  getLatestCycleEntry,
+} from '../services/cycleStorage'
+
+import {
+  getNextPeriodDate,
+  getFertileWindow,
+  getDaysUntil,
+  getCurrentCycleDay,
+  formatDate,
+} from '../utils/cycleCalculations'
+
+import StatCard from '../components/StatCard'
 
 function Dashboard() {
   const history = getCycleHistory()
+  const latest = getLatestCycleEntry()
 
   const chartData = history.map((entry) => ({
     date: new Date(entry.loggedAt).toLocaleDateString('en-US', {
@@ -22,27 +37,93 @@ function Dashboard() {
   }))
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold text-gray-800 mb-2">
-        Dashboard
-      </h1>
+    <div className="max-w-5xl mx-auto px-6 py-16">
+      {/* Welcome Banner */}
+      <div className="bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl p-8 text-white mb-8 shadow-lg">
+        <h1 className="text-3xl font-bold mb-2">
+          Welcome Back 🌸
+        </h1>
 
-      <p className="text-gray-600 mb-10">
-        Your cycle trends over time.
-      </p>
+        <p className="text-white/90">
+          {latest
+            ? "Here's where you're at in your cycle today."
+            : 'Log your first cycle to unlock personalized insights.'}
+        </p>
+      </div>
 
-      <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-white/50">
-        <h2 className="text-lg font-semibold text-gray-700 mb-4">
+      {latest ? (
+        <>
+          {/* Statistics */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            <StatCard
+              icon="📅"
+              label="Cycle Day"
+              value={`Day ${getCurrentCycleDay(
+                latest.lastPeriodStart
+              )}`}
+              accent="pink"
+            />
+
+            <StatCard
+              icon="⏳"
+              label="Next Period"
+              value={`${getDaysUntil(
+                getNextPeriodDate(latest)
+              )} days`}
+              accent="purple"
+            />
+
+            <StatCard
+              icon="🌷"
+              label="Fertile Window"
+              value={formatDate(
+                getFertileWindow(latest).start
+              )}
+              accent="blue"
+            />
+
+            <StatCard
+              icon="🔄"
+              label="Cycle Length"
+              value={`${latest.cycleLength} days`}
+              accent="pink"
+            />
+          </div>
+        </>
+      ) : (
+        <div className="bg-white rounded-3xl p-12 text-center border border-pink-100 shadow-sm mb-10">
+          <div className="text-5xl mb-4">📊</div>
+
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            No Cycle Data Yet
+          </h2>
+
+          <p className="text-gray-600 mb-6">
+            Start tracking your first period to unlock
+            personalized insights and beautiful statistics.
+          </p>
+
+          <Link
+            to="/cycle-tracker"
+            className="inline-block bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full font-medium transition-colors"
+          >
+            Start Tracking
+          </Link>
+        </div>
+      )}
+
+      {/* Chart */}
+      <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-6 shadow-sm border border-white/50">
+        <h2 className="text-xl font-semibold text-gray-800 mb-5">
           Cycle Length Trend
         </h2>
 
         {chartData.length === 0 ? (
           <p className="text-center py-16 text-gray-500">
-            No cycle data yet — log your first cycle in the Cycle Tracker to
-            see trends here.
+            Log your first cycle to see your trends here.
           </p>
         ) : (
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={320}>
             <LineChart data={chartData}>
               <CartesianGrid
                 strokeDasharray="3 3"
