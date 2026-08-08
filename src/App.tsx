@@ -16,6 +16,9 @@ import MentalWellness from './pages/MentalWellness'
 import Medications from './pages/Medications'
 import Healthcare from './pages/Healthcare'
 import Emergency from './pages/Emergency'
+import Pregnancy from './pages/Pregnancy'
+import HealthReports from './pages/HealthReports'
+import Wearables from './pages/Wearables'
 
 function App() {
   return (
@@ -58,6 +61,21 @@ function App() {
           <Route
             path="/emergency"
             element={<Emergency />}
+          />
+
+          <Route
+            path="/pregnancy"
+            element={<Pregnancy />}
+          />
+
+          <Route
+            path="/health-reports"
+            element={<HealthReports />}
+          />
+
+          <Route
+            path="/wearables"
+            element={<Wearables />}
           />
 
           <Route path="/login" element={<Login />} />

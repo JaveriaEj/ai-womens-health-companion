@@ -42,13 +42,13 @@ function Emergency() {
       </div>
 
       <div className="text-center">
-        <a
-          href="tel:1122"
-          className="inline-block bg-red-500 text-white px-8 py-3 rounded-full font-medium hover:bg-red-600 transition-colors"
-        >
-          Emergency Contact (1122)
-        </a>
-      </div>
+  <p className="text-sm text-gray-500 mb-4">
+    In a medical emergency, contact your local emergency services immediately.
+  </p>
+  <div className="inline-block bg-red-500 text-white px-8 py-3 rounded-full font-medium">
+    Call Local Emergency Services
+  </div>
+</div>
     </FeaturePageLayout>
   )
 }

@@ -60,12 +60,14 @@ export const allFeatures = [
     title: 'Pregnancy Mode',
     description:
       'Week-by-week fetal development updates and appointment reminders.',
+    path: '/pregnancy',
   },
   {
     icon: '🩺',
     title: 'Health Reports',
     description:
       'Export cycle history and symptom trends as a PDF for doctor visits.',
+    path: '/health-reports',
   },
   {
     icon: '🚨',
@@ -79,5 +81,6 @@ export const allFeatures = [
     title: 'Wearable Integration',
     description:
       'Sync with Apple Watch, Fitbit, and Garmin for richer health data.',
+    path: '/wearables',
   },
 ]
