@@ -1,21 +1,35 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { signIn } from '../services/authService'
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    setError('')
+    setLoading(true)
 
-    // Mock auth — real Supabase auth comes in Phase 2
-    alert('Login is a UI demo for now — real authentication comes in Phase 2.')
+    const { error } = await signIn(email, password)
+
+    setLoading(false)
+
+    if (error) {
+      setError(error.message)
+      return
+    }
+
+    window.location.href = '/dashboard'
   }
 
   return (
     <div className="min-h-screen bg-cream flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
+
         {/* Header */}
         <div className="text-center mb-8">
           <div className="text-4xl mb-4">🌸</div>
@@ -34,6 +48,7 @@ function Login() {
           onSubmit={handleSubmit}
           className="bg-white rounded-card shadow-sm border border-blush p-8 space-y-5"
         >
+
           {/* Email */}
           <div>
             <label className="block text-sm font-medium text-wine mb-2">
@@ -95,18 +110,27 @@ function Login() {
             </Link>
           </div>
 
+          {/* Error */}
+          {error && (
+            <p className="text-red-500 text-sm text-center">
+              {error}
+            </p>
+          )}
+
           {/* Submit */}
           <button
             type="submit"
-            className="w-full bg-wine text-white py-3 rounded-full font-medium hover:bg-wine-dark transition-colors"
+            disabled={loading}
+            className="w-full bg-wine text-white py-3 rounded-full font-medium hover:bg-wine-dark transition-colors disabled:opacity-50"
           >
-            Sign In
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
         {/* Register */}
         <p className="text-center text-sm text-taupe mt-6">
           Don't have an account?{' '}
+
           <Link
             to="/register"
             className="text-wine font-semibold hover:underline"
@@ -114,6 +138,7 @@ function Login() {
             Sign up
           </Link>
         </p>
+
       </div>
     </div>
   )
