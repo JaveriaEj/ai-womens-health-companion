@@ -20,6 +20,7 @@ import Pregnancy from './pages/Pregnancy'
 import HealthReports from './pages/HealthReports'
 import Wearables from './pages/Wearables'
 import Register from './pages/Register'
+import ForgotPassword from './pages/ForgotPassword'
 
 function App() {
   return (
@@ -29,68 +30,25 @@ function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-
           <Route path="/features" element={<Features />} />
-
           <Route path="/education" element={<Education />} />
-
           <Route path="/dashboard" element={<Dashboard />} />
-
           <Route path="/cycle-tracker" element={<CycleTracker />} />
-
           <Route path="/ai-assistant" element={<AIAssistant />} />
-
           <Route path="/symptom-logger" element={<SymptomLogger />} />
-
           <Route path="/nutrition" element={<Nutrition />} />
-
-          <Route
-            path="/mental-wellness"
-            element={<MentalWellness />}
-          />
-
-          <Route
-            path="/medications"
-            element={<Medications />}
-          />
-
-          <Route
-            path="/healthcare"
-            element={<Healthcare />}
-          />
-
-          <Route
-            path="/emergency"
-            element={<Emergency />}
-          />
-
-          <Route
-            path="/pregnancy"
-            element={<Pregnancy />}
-          />
-
-          <Route
-            path="/health-reports"
-            element={<HealthReports />}
-          />
-
-          <Route
-            path="/wearables"
-            element={<Wearables />}
-          />
-
+          <Route path="/mental-wellness" element={<MentalWellness />} />
+          <Route path="/medications" element={<Medications />} />
+          <Route path="/healthcare" element={<Healthcare />} />
+          <Route path="/emergency" element={<Emergency />} />
+          <Route path="/pregnancy" element={<Pregnancy />} />
+          <Route path="/health-reports" element={<HealthReports />} />
+          <Route path="/wearables" element={<Wearables />} />
           <Route path="/login" element={<Login />} />
-
-          <Route
-            path="/coming-soon"
-            element={<ComingSoon />}
-          />
+          <Route path="/coming-soon" element={<ComingSoon />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
-
-        <Route 
-        path="/register" 
-        element={<Register />} />
-        
       </main>
 
       <Footer />
