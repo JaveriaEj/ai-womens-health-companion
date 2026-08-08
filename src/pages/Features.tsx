@@ -4,7 +4,7 @@ import { allFeatures } from '../data/allFeatures'
 function Features() {
   return (
     <div className="max-w-6xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold text-gray-800 text-center mb-2">
+      <h1 className="text-4xl font-bold text-gray-800 mb-2 text-center">
         Everything HerHealth Offers
       </h1>
 
@@ -19,6 +19,7 @@ function Features() {
             icon={feature.icon}
             title={feature.title}
             description={feature.description}
+            path={feature.path}
           />
         ))}
       </div>
