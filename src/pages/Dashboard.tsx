@@ -44,10 +44,9 @@ function Dashboard() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-16">
       {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-pink-400 to-purple-500 rounded-3xl p-8 text-white mb-8 shadow-lg">
-        <h1 className="text-3xl font-bold mb-2">Welcome Back 🌸</h1>
-
-        <p className="text-white/90">
+      <div className="bg-gradient-to-r from-blush to-rose/40 rounded-card p-8 mb-8 shadow-sm border border-blush">
+        <h1 className="font-heading text-3xl font-bold mb-2 text-wine">Welcome Back 🌸</h1>
+        <p className="text-wine/70">
           {latest
             ? "Here's where you're at in your cycle today."
             : 'Log your first cycle to unlock personalized insights.'}
@@ -106,18 +105,18 @@ function Dashboard() {
           )}
         </>
       ) : (
-        <div className="bg-white rounded-3xl p-12 text-center border border-pink-100 shadow-sm mb-10">
+        <div className="bg-white rounded-card p-12 text-center border border-blush shadow-sm mb-10">
           <div className="text-5xl mb-4">📊</div>
 
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">No Cycle Data Yet</h2>
+          <h2 className="font-heading text-xl font-semibold text-wine mb-2">No Cycle Data Yet</h2>
 
-          <p className="text-gray-600 mb-6">
+          <p className="text-taupe mb-6">
             Start tracking your first period to unlock personalized insights and beautiful statistics.
           </p>
 
           <Link
             to="/cycle-tracker"
-            className="inline-block bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full font-medium transition-colors"
+            className="inline-block bg-wine hover:bg-wine-dark text-white px-6 py-3 rounded-full font-medium transition-colors"
           >
             Start Tracking
           </Link>
@@ -125,24 +124,24 @@ function Dashboard() {
       )}
 
       {/* Chart */}
-      <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-6 shadow-sm border border-white/50">
-        <h2 className="text-xl font-semibold text-gray-800 mb-5">Cycle Length Trend</h2>
+      <div className="bg-white/70 backdrop-blur-sm rounded-card p-6 shadow-sm border border-blush">
+        <h2 className="font-heading text-xl font-semibold text-wine mb-5">Cycle Length Trend</h2>
 
         {chartData.length === 0 ? (
-          <p className="text-center py-16 text-gray-500">Log your first cycle to see your trends here.</p>
+          <p className="text-center py-16 text-taupe">Log your first cycle to see your trends here.</p>
         ) : (
           <ResponsiveContainer width="100%" height={320}>
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f3e8ff" />
-              <XAxis dataKey="date" stroke="#9ca3af" />
-              <YAxis stroke="#9ca3af" domain={[20, 35]} />
-              <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid #f3e8ff' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#FBE4EC" />
+              <XAxis dataKey="date" stroke="#8B7355" />
+              <YAxis stroke="#8B7355" domain={[20, 35]} />
+              <Tooltip contentStyle={{ borderRadius: '12px', border: '1px solid #FBE4EC' }} />
               <Line
                 type="monotone"
                 dataKey="cycleLength"
-                stroke="#ec4899"
+                stroke="#6B2737"
                 strokeWidth={3}
-                dot={{ fill: '#ec4899', r: 5 }}
+                dot={{ fill: '#6B2737', r: 5 }}
               />
             </LineChart>
           </ResponsiveContainer>

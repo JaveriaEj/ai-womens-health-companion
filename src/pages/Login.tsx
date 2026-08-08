@@ -1,9 +1,122 @@
-function Dashboard() {
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+
+function Login() {
+  const [showPassword, setShowPassword] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+
+    // Mock auth — real Supabase auth comes in Phase 2
+    alert('Login is a UI demo for now — real authentication comes in Phase 2.')
+  }
+
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold text-pink-600">Dashboard Page</h1>
+    <div className="min-h-screen bg-cream flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="text-4xl mb-4">🌸</div>
+
+          <h1 className="font-heading text-3xl font-semibold text-wine mb-2">
+            Welcome back
+          </h1>
+
+          <p className="text-taupe">
+            Sign in to continue your journey
+          </p>
+        </div>
+
+        {/* Login Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-card shadow-sm border border-blush p-8 space-y-5"
+        >
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-wine mb-2">
+              Email
+            </label>
+
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              className="w-full px-4 py-3 rounded-2xl border border-blush bg-cream focus:outline-none focus:ring-2 focus:ring-rose text-sm"
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium text-wine mb-2">
+              Password
+            </label>
+
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+                className="w-full px-4 py-3 rounded-2xl border border-blush bg-cream focus:outline-none focus:ring-2 focus:ring-rose text-sm pr-16"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-taupe hover:text-wine transition-colors"
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
+          </div>
+
+          {/* Remember Me / Forgot Password */}
+          <div className="flex items-center justify-between text-sm">
+            <label className="flex items-center gap-2 text-taupe cursor-pointer">
+              <input
+                type="checkbox"
+                className="accent-wine"
+              />
+
+              <span>Remember me</span>
+            </label>
+
+            <Link
+              to="/forgot-password"
+              className="text-wine font-medium hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-wine text-white py-3 rounded-full font-medium hover:bg-wine-dark transition-colors"
+          >
+            Sign In
+          </button>
+        </form>
+
+        {/* Register */}
+        <p className="text-center text-sm text-taupe mt-6">
+          Don't have an account?{' '}
+          <Link
+            to="/register"
+            className="text-wine font-semibold hover:underline"
+          >
+            Sign up
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }
 
-export default Dashboard
+export default Login

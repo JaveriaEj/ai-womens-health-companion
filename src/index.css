@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --color-cream: #FFF9F6;
+  --color-blush: #FBE4EC;
+  --color-rose: #E8A0BC;
+  --color-wine: #6B2737;
+  --color-wine-dark: #5A2030;
+  --color-taupe: #8B7355;
+  --color-sage: #B8C4B0;
+
+  --radius-card: 20px;
+
+  --font-heading: Georgia, serif;
+}

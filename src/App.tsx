@@ -19,10 +19,11 @@ import Emergency from './pages/Emergency'
 import Pregnancy from './pages/Pregnancy'
 import HealthReports from './pages/HealthReports'
 import Wearables from './pages/Wearables'
+import Register from './pages/Register'
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-cream flex flex-col">
       <Navbar />
 
       <main className="flex-1">
@@ -85,6 +86,11 @@ function App() {
             element={<ComingSoon />}
           />
         </Routes>
+
+        <Route 
+        path="/register" 
+        element={<Register />} />
+        
       </main>
 
       <Footer />
