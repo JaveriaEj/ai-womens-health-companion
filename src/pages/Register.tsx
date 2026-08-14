@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { signUp } from '../services/authService'
 
 function Register() {
   const [showPassword, setShowPassword] = useState(false)
@@ -8,6 +9,7 @@ function Register() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [agreed, setAgreed] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
   function getPasswordStrength(pw: string): { label: string; color: string } {
@@ -19,7 +21,7 @@ function Register() {
 
   const strength = getPasswordStrength(password)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
 
@@ -32,8 +34,17 @@ function Register() {
       return
     }
 
-    // Mock auth — real Supabase auth comes in Phase 2
-    alert('Account creation is a UI demo for now — real authentication comes in Phase 2.')
+    setLoading(true)
+    const { error: signUpError } = await signUp(email, password, name)
+    setLoading(false)
+
+    if (signUpError) {
+      setError(signUpError.message)
+      return
+    }
+
+    alert('Account created! Check your email to confirm, then sign in.')
+    window.location.href = '/login'
   }
 
   return (
@@ -95,7 +106,10 @@ function Register() {
             {password && (
               <div className="mt-2 flex items-center gap-2">
                 <div className="flex-1 h-1.5 bg-blush rounded-full overflow-hidden">
-                  <div className={`h-full ${strength.color} transition-all`} style={{ width: password.length < 6 ? '33%' : password.length < 10 ? '66%' : '100%' }} />
+                  <div
+                    className={`h-full ${strength.color} transition-all`}
+                    style={{ width: password.length < 6 ? '33%' : password.length < 10 ? '66%' : '100%' }}
+                  />
                 </div>
                 <span className="text-xs text-taupe">{strength.label}</span>
               </div>
@@ -128,9 +142,10 @@ function Register() {
 
           <button
             type="submit"
-            className="w-full bg-wine text-white py-3 rounded-full font-medium hover:bg-wine-dark transition-colors"
+            disabled={loading}
+            className="w-full bg-wine text-white py-3 rounded-full font-medium hover:bg-wine-dark transition-colors disabled:opacity-50"
           >
-            Create Account
+            {loading ? 'Creating account...' : 'Create Account'}
           </button>
         </form>
 
